@@ -17,6 +17,7 @@ import { FilterInterface } from "./NameFilter";
 
 export default function MobileFilter({ refetch, setRenderKey }: FilterInterface) {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { members } = useAppSelector((state: any) => state.membersData);
   const [search, setSearch] = useState("");
 

@@ -10,15 +10,16 @@ import { useCallback, useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import _ from "lodash";
 import SearchComponent from "../search";
-import {
-  useGetMembersByEmailQuery,
-  useLazyGetMembersByEmailQuery,
-} from "@/lib/redux/api-slice/membersApiSlice";
+import { useLazyGetMembersByEmailQuery } from "@/lib/redux/api-slice/membersApiSlice";
 import mapMembers, { memberInterface } from "@/lib/hooks/mapMembers";
 import { FilterInterface } from "./NameFilter";
 
-export default function EmailFilter({ refetch, setRenderKey }: FilterInterface) {
+export default function EmailFilter({
+  refetch,
+  setRenderKey,
+}: FilterInterface) {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { members } = useAppSelector((state: any) => state.membersData);
 
   const [search, setSearch] = useState("");

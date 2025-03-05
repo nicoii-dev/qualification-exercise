@@ -32,7 +32,6 @@ export default function LastActiveFilter() {
   return (
     <div>
       <Datepicker
-            popoverDirection="left"
         primaryColor="amber"
         value={dateValue}
         onChange={(event: DateValueType) => onDateChange(event)}

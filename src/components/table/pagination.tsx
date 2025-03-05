@@ -3,7 +3,6 @@ import {
   nextEndCursor,
   prevEndCursor,
 } from "@/lib/redux/slice/membersSlice";
-import _ from "lodash";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useDispatch } from "react-redux";
@@ -20,6 +19,7 @@ export default function PaginationComponent({
 }: PaginationInterface) {
   const dispatch = useDispatch();
   const { members, hasNextPage } = useAppSelector(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: any) => state.membersData
   );
   const onPageSizeChange = (size: number) => {

@@ -23,6 +23,7 @@ export default function MembersPage() {
   const [renderKey, setRenderKey] = useState(0); // for force rerendering
 
   const { members, endCursor, filter } = useAppSelector(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: any) => state.membersData
   );
 
@@ -50,6 +51,7 @@ export default function MembersPage() {
   const setMembersData = useCallback(() => {
     dispatch(setMembers(mapMembers(data?.data?.members?.edges)));
     dispatch(setHasNextPage(data?.data?.members?.pageInfo?.hasNextPage));
+    if(renderKey) {} // for force re-rendering after clearing search component
   }, [data, dispatch, renderKey]);
 
   useEffect(() => {

@@ -11,6 +11,7 @@ interface headerInterface {
 }
 interface TableInterface {
   header: headerInterface[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
   total: number;
   pageSize: number;

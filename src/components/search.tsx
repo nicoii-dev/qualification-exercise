@@ -19,7 +19,7 @@ export default function SearchComponent({
 
   useEffect(() => {
     if (tableSearch) tableSearch(searchText);
-  }, [searchText]);
+  }, [searchText, tableSearch]);
 
   return (
     <label className="flex input justify-center items-center border-[#7A7A7A] bg-[#0A1117]">

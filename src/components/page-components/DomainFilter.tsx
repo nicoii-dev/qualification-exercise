@@ -17,6 +17,7 @@ import { FilterInterface } from "./NameFilter";
 
 export default function DomainFilter({ refetch, setRenderKey }: FilterInterface) {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { members } = useAppSelector((state: any) => state.membersData);
 
   // query
