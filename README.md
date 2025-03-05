@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend Qualification Exercises
 
-## Getting Started
+This repository contains the qualification exercises given to frontend engineers interested in joining the **ScaleForge** team. These exercises are designed to evaluate the coding and problem-solving abilities of the candidate. The candidate is given a maximum of 3 days to complete the exercises. The candidate must then submit the completed exercises by sending an email to our HR team.
 
-First, run the development server:
+The completed exercises will be evaluated by the **ScaleForge** team using the following criteria:
+- Accuracy of the implementation
+- Code quality
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Instructions
+1. Duplicate this repository and push it to a private repository on your personal GitHub account. Refer [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository) to learn how to duplicate a repository.
+2. Implement the web application as described in the `Requirements` section. The candiate must use either `Next.js` or `SvelteKit` as the frontend framework. The web application must run locally by running the `npm start` command. The web application must then be accessible via a web browser at `http://localhost:3000`.
+3. Push your changes to your duplicated repository.
+4. Add the following **ScaleForge** team members as collaborators to your duplicated repository:
+   - `rogermadjos`
+   - `ccpacillos`
+
+# Requirements
+The web application displays a list of members and their corresponding details. The web application must implement the UI as specified in the provided Figma [file](https://www.figma.com/file/AwrMuHBOqmAAj0g8mv4MWb/Frontend-Test-Mockup-Design?type=design&node-id=4%3A121&mode=design&t=gNzV3SQsKXfkhEJR-1). The list of members can be fetched from the provided [GraphQL API](https://report.development.opexa.io/graphql). All the necessary information for using the GraphQL API is provided in the `Docs` section in the GraphQL Playground. In particular, the web application must use the following endpoints:
+- `Query.members` - fetch the list of members
+- `Query.membersByName` - search members by name
+- `Query.membersByEmailAddress` - search members by email address
+- `Query.membersByMobileNumber` - search members by mobile number
+- `Query.membersByDomain` - search members by domain
+
+All requests to the GraphQL API must be authenticated through the use of a standard `Bearer` token:
+```json
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjakp0ZFdQaGhkUHlYU25SdSIsInJvbGUiOiJBRE1JTiIsImp0aSI6IjJjODBiMDI1YzY4MDZjNTBhMzQ1NzVjNyIsImlwQWRkcmVzcyI6IjE0My40NC4xOTIuMTQ3IiwibG9jYXRpb24iOiJDYWdheWFuIGRlIE9ybywgUGhpbGlwcGluZXMiLCJwbGF0Zm9ybSI6IjEydXd1UkNjWXAxY1dpWHpQWSIsImlhcCI6IjIwMjQtMTItMjNUMDQ6MjA6MTIuOTc4KzAwOjAwIiwidGVzdFBhc3MiOnRydWUsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3MzQ5Mjc2NDMsImV4cCI6MTc2NjQ2MzY0M30.3bOWl4q2k4IzLJTpmTB2zlgvtxQAWy8fq9f2cWSIZD4"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To sum up, the web application includes the following features:
+- Table of members
+- Filters
+- Pagination
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Sample GraphQL Queries
+### Fetch the list of members
+```graphql
+query ($first: Int, $after: Cursor, $filter: MemberFilterInput) {
+  members(first: $first, after: $after, filter: $filter) {
+    edges {
+      node {
+        id
+        ... on Member {
+          name
+          verificationStatus
+          emailAddress
+          mobileNumber
+          domain
+          dateTimeCreated
+          dateTimeLastActive
+          status
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+### Search members by name
+```graphql
+query ($search: String!) {
+  membersByName(search: $search, first: 20) {
+    id
+  }
+}
+```
